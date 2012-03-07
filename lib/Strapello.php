@@ -25,6 +25,16 @@ class Strapello
 		
 	}
 	
+	/**
+	 * Member
+	 * 
+	 * Get member information
+	 * 
+	 * @param string $key either a member, organization, board, list
+	 * @param mixed optional $value The search value for key
+	 * 
+	 * @return false|array of $key cards
+	 */
 	public static function member($id)
 	{
 		
