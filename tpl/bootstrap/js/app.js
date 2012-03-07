@@ -2,7 +2,8 @@ $(function()
 {
    var win = $(window)
       , nav = $('.navbar')
-      , navTop = $('.navbar').length && $('.navbar').offset().top - 30
+      , navHeight = $('.navbar').first().height()
+      , navTop = $('.navbar').length && $('.navbar').offset().top - navHeight
       , isFixed = 0
 
     processScroll()

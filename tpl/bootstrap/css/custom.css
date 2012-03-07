@@ -70,3 +70,18 @@ header .inner h1 img
   width: 12px;
   vertical-align: middle;
 }
+.progress .bar
+{
+	background-color: #E86537;
+	background-image: -moz-linear-gradient(top, #EF784E, #DD4814);
+	background-image: -ms-linear-gradient(top, #EF784E, #DD4814);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#EF784E), to(#DD4814));
+	background-image: -webkit-linear-gradient(top, #EF784E, #DD4814);
+	background-image: -o-linear-gradient(top, #EF784E, #DD4814);
+	background-image: linear-gradient(top, #EF784E, #DD4814);
+}
+
+.progress .progress-info
+{
+	opacity: 0.8;
+}
