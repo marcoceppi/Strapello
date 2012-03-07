@@ -2,14 +2,13 @@ header .inner h1
 {
   font-size: 81px;
   line-height: 1;
-  margin-top: 80px;
+  margin-top: 10px;
 }
 
 header .inner h1 img
 {
   vertical-align: middle;
   width:80px;
-
 }
 #total_progress span
 {
@@ -25,7 +24,7 @@ header .inner h1 img
 
 #total_progress .progress, #total_progress .bar
 {
-  height: 50px;
+  height: 30px;
   border-radius: 10px;
 }
 
@@ -56,4 +55,18 @@ header .inner h1 img
   border-top-right-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
   margin-right:0px;
+}
+
+#tasks div.well ul
+{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.trello
+{
+  border: 0;
+  width: 12px;
+  vertical-align: middle;
 }
