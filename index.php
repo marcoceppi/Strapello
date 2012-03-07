@@ -6,7 +6,9 @@
  * So many people have frameworks out there, including one I built to
  * do all this jazz. But! WE'RE PROTOTYPING ON THE FLY GOGOGO. Proof of Concept <3
  */
- 
+
+require_once('lib/common.php');
+
 $raw_route = (!empty($_GET['__r'])) ? $_GET['__r'] : 'main';
 
 $routes = explode('/', $raw_route);
