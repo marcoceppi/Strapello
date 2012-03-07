@@ -12,7 +12,12 @@ require_once('helper/Trello.php');
 class Strapello
 {
 	public static $lists, $boards, $members, $cards;
-	protected static $trello;
+	public static $statuses = array(
+		'done' => 'done', 'todo' => 'todo', 'to do' => 'todo', 
+		'doing' => 'inprogress', 'done' => 'done', 'finished' => 'done', 
+		'next' => 'next', 'hold' => 'postponed', 'on hold' => 'postponed', 
+		'in progress' => 'inprogress');
+	protected static $trello new Trello();
 	private static $cache;
 	
 	public static function lists($id)

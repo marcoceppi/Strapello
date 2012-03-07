@@ -3,9 +3,6 @@
 require_once('inc/config.inc.php');
 
 
-$statuses = array('done' => 'done', 'todo' => 'todo', 'to do' => 'todo', 'doing' => 'inprogress', 'done' => 'done', 'finished' => 'done', 'next' => 'next', 'hold' => 'postponed', 'on hold' => 'postponed', 'in progress' => 'inprogress');
-
-
 /**
  * These should be made into a methods of a Strapello class
  */
