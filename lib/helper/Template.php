@@ -24,8 +24,6 @@ class Template extends Smarty
 	}
 }
 
-$View = new Template();
-
 // I've been doing this wrong for a long time. Thanks Stefano!
 
 define('TEMPLATE_JSON', 0);
