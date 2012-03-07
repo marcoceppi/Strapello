@@ -52,6 +52,7 @@
           bars: { show: bars, barWidth: 1 }
         }
       });
+      $('a[rel=tooltip]').tooltip({placement: 'bottom'});
     });
     </script>
   </body>
