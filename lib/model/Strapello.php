@@ -7,7 +7,7 @@
  * @author Marco Ceppi <marco@ceppi.net>
  */
 
-require_once('Trello.php');
+require_once('helper/Trello.php');
 
 class Strapello
 {
@@ -15,7 +15,7 @@ class Strapello
 	protected static $trello;
 	private static $cache;
 	
-	public static function list($id)
+	public static function lists($id)
 	{
 		
 	}

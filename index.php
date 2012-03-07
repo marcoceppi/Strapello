@@ -14,8 +14,12 @@ $route = array_shift($routes);
 
 if( file_exists('app/' . $route . '.php') )
 {
+	define('IN_APP', true);
+	
 	require_once('app/' . $route . '.php');
 	
+	// There might be a better way to do this.
+	$route::$View = $View;
 	$method = (!empty($routes)) ? array_shift($routes) : 'init';
 	$route::$method($routes);
 }
