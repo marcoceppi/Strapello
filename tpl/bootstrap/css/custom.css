@@ -70,6 +70,12 @@ header .inner h1 img
   width: 12px;
   vertical-align: middle;
 }
+
+li [class^="icon-"], li [class*=" icon-"]
+{
+  vertical-align: text-bottom;
+}
+
 .progress .bar
 {
 	background-color: #E86537;

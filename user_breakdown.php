@@ -7,10 +7,11 @@ require_once('inc/config.inc.php');
 
 $statuses = array('done' => 'done', 'todo' => 'todo', 'to do' => 'todo', 'doing' => 'inprogress', 'done' => 'done', 'finished' => 'done', 'next' => 'next', 'hold' => 'postponed', 'on hold' => 'postponed', 'in progress' => 'inprogress');
 
-function truncate($string, $limit, $break = ' ', $pad = '...')
+function truncate($string, $limit, $break = ' ', $pad = '&hellip;')
 {
 	if(strlen($string) <= $limit) return $string;
 
+	/*
 	if(($breakpoint = strpos($string, $break, $limit)) !== false)
 	{
 		if($breakpoint < strlen($string) - 1)
@@ -18,10 +19,16 @@ function truncate($string, $limit, $break = ' ', $pad = '...')
 			$string = substr($string, 0, $breakpoint) . $pad;
 		}
     }
+    */
+    
+    $string = substr($string, 0, $limit) . $pad;
 	
 	return $string;
 }
 
+/**
+ * These should be made into a methods of a Strapello class
+ */
 function getList($list_id)
 {
 	return json_decode(callAPI('https://api.trello.com/1/lists/' . $list_id . '?key=' . PUBLIC_KEY), true);
@@ -124,6 +131,7 @@ function getStatus($name)
 	return (array_key_exists($name, $statuses)) ? $statuses[$name] : DEFAULT_STATUS;
 }
 
+// This should be a Trello class method
 function callAPI($url)
 {
 	global $api_count;

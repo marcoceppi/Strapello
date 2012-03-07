@@ -52,7 +52,7 @@ require_once('header.tpl');
           <h3>Boards</h3>
           <ul>
           <?php foreach($boards as $board) { ?>
-            <li><a href="<?php echo $board['data']['url']; ?>" target="_blank" border="0"><img src="https://trello.com/images/favicon.png" border="0" class="trello" title="Open in Trello" alt="Open in Trello"></a> <?php echo truncate($board['data']['name'], 30); ?> ( <?php echo $board['stats']['done']; ?> / <?php echo $board['stats']['total']; ?> )</li>
+            <li><a href="<?php echo $board['data']['url']; ?>" target="_blank" border="0"><i class="icon-th-large" title="Open Board in Trello" alt="Open Board in Trello"></i></a> <?php echo truncate($board['data']['name'], 35); ?> ( <?php echo $board['stats']['done']; ?> / <?php echo $board['stats']['total']; ?> )</li>
           <?php } ?>
           </ul>
         </div>
@@ -62,7 +62,7 @@ require_once('header.tpl');
           <h3>Todo</h3>
           <ul>
           <?php foreach($todo as $item) { ?>
-            <li><a href="<?php echo $item['url']; ?>" target="_blank" border="0"><img src="https://trello.com/images/favicon.png" class="trello" title="Open in Trello" alt="Open in Trello" border="0"></a> <?php echo truncate($item['name'], 40); ?></li>
+            <li><a href="<?php echo $item['url']; ?>" target="_blank" border="0"><i class="icon-list-alt" title="Open this Card in Trello" alt="Open this Card in Trello"></i></a> <?php echo truncate($item['name'], 35); ?></li>
           <?php } ?>
           </ul>
         </div>
@@ -70,7 +70,7 @@ require_once('header.tpl');
           <h3>Next</h3>
           <ul>
           <?php foreach($next as $item) { ?>
-            <li><a href="<?php echo $item['url']; ?>" target="_blank" border="0"><img src="https://trello.com/images/favicon.png" border="0" class="trello" title="Open in Trello" alt="Open in Trello"></a> <?php echo truncate($item['name'], 40); ?></li>
+            <li><a href="<?php echo $item['url']; ?>" target="_blank" border="0"><i class="icon-list-alt" title="Open this Card in Trello" alt="Open this Card in Trello"></i></a> <?php echo truncate($item['name'], 35); ?></li>
           <?php } ?>
           </ul>
         </div>
@@ -78,7 +78,7 @@ require_once('header.tpl');
           <h3>In Progress</h3>
           <ul>
           <?php foreach($inprogress as $item) { ?>
-            <li><a href="<?php echo $item['url']; ?>" target="_blank"><?php echo truncate($item['name'], 40); ?></a></li>
+            <li><a href="<?php echo $item['url']; ?>" target="_blank"><i class="icon-list-alt" title="Open this Card in Trello" alt="Open this Card in Trello"></i></a> <?php echo truncate($item['name'], 35); ?></li>
           <?php } ?>
           </ul>
         </div>
