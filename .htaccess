@@ -3,4 +3,4 @@ RewriteBase /
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*+)$  index.php?r=$1 [L,NC,QSA]
+RewriteRule ^(.*+)$  index.php?__r=$1 [L,NC,QSA]
