@@ -1,0 +1,10 @@
+<?php
+
+if( !defined('IN_APP') )
+{
+	die('Khai Phan, GTFO!!');
+}
+
+define('PUBLIC_KEY', '');
+define('PRIVATE_KEY', '');
+define('DEFAULT_STATUS', 'todo');
