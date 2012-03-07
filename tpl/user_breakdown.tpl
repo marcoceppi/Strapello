@@ -11,6 +11,7 @@ require_once('header.tpl');
         </div>
       <br>
 	  <div class="navbar"><div class="navbar-inner"><div class="container">
+		<a class="brand" href="#">Strapello</a>
 		<ul class="nav">
 		  <!-- <li><a href="#progress">Progress</a></li> -->
 		  <li><a href="#breakdown">Breakdown</a></li>
@@ -56,8 +57,6 @@ require_once('header.tpl');
           <?php } ?>
           </ul>
         </div>
-        <!-- <div class="span8">
-        <div class="row"> -->
         <div class="span4 well">
           <h3>Todo</h3>
           <ul>
@@ -84,6 +83,5 @@ require_once('header.tpl');
         </div>
       </div>
     </section>
-
 <?php
 require_once('footer.tpl');
