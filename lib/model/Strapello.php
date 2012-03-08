@@ -23,12 +23,37 @@ class Strapello
 
 	private static $cache = array();
 	
-	public static function lists($id)
+	// Options needs better defaults
+	public static function lists($id, $value = null, $options = array('cards' => 'none'))
 	{
-		if( !$data = static::cache($id) )
+		if( is_null($value) )
 		{
-			$data = Trello::get_array("lists/$id");
-			static::cache($id, $data);
+			if( !$data = static::cache($id) )
+			{
+				$data = Trello::get_array("lists/$id");
+				static::cache($id, $data);
+			}
+		}
+		else
+		{
+			$valid_keys = array('board');
+			
+			if( !in_array($id, $valid_keys) )
+			{
+				throw new Exception($id . ' is not a valid API endpoint.');
+			}
+			
+			if( !$data = static::cache($id . '_' . $value) )
+			{
+				$data = Trello::get_array("$id/$value/lists");
+				
+				foreach($data as $list)
+				{
+					static::cache($list['id'], $list);
+				}
+				
+				static::cache($id . '_' . $value);
+			}
 		}
 		
 		return $data;
@@ -159,6 +184,12 @@ class Strapello
 		}
 		
 		return $data;
+	}
+	
+	public static function status($name)
+	{
+		$name = preg_replace('/[^a-zA-Z0-9 ]/', '', strtolower($name));
+		return (array_key_exists($name, static::$statuses)) ? static::$statuses[$name] : DEFAULT_STATUS;
 	}
 	
 	private static function cache($key, $value = null)
