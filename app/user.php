@@ -7,7 +7,7 @@ class user extends App
 	public static function init($user)
 	{
 		$userdata = Strapello::member($user);
-		$cards = Strapello::cards('member', $userdata['id']);
+		$cards = Strapello::cards('members', $userdata['id']);
 		
 		$boards = array();
 		$tasks = array();
@@ -24,7 +24,7 @@ class user extends App
 			{
 				$boards[$card['idBoard']] = array('data' => Strapello::board($card['idBoard']), 'stats' => array('inprogress' => 0, 'todo' => 0, 'done' => 0, 'total' => 0));
 				// Pre-seed cache with lists for the board
-				Strapello::lists('board', $card['idBoard']);
+				Strapello::lists('boards', $card['idBoard']);
 			}
 			
 			$list = Strapello::lists($card['idList']);

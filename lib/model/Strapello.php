@@ -36,7 +36,7 @@ class Strapello
 		}
 		else
 		{
-			$valid_keys = array('board');
+			$valid_keys = array('boards');
 			
 			if( !in_array($id, $valid_keys) )
 			{
@@ -63,8 +63,8 @@ class Strapello
 	{
 		if( !$data = static::cache($id) )
 		{
-			$fields = (is_array($fields) && !empty($fields)) ? '?fields=' . implode($fields) : '';
-			$data = Trello::get_array("board/$id/$fields");
+			$fields = (is_array($fields) && !empty($fields)) ? '?fields=' . implode(',', $fields) : '';
+			$data = Trello::get_array("boards/$id/$fields");
 			static::cache($id, $data);
 		}
 		
@@ -73,7 +73,7 @@ class Strapello
 	
 	public static function actions($key, $value = null, $filter = 'all', $params = array('limit' => 1000, 'fields' => 'all'))
 	{
-		$valid_keys = array('member', 'organization', 'board', 'list');
+		$valid_keys = array('members', 'organizations', 'boards', 'lists');
 		
 		if( !in_array($key, $valid_keys) )
 		{
@@ -100,7 +100,7 @@ class Strapello
 		
 		if( !$data = static::cache($key . '_' . $value) )
 		{
-			$data = Trello::get_array("$key/$value/actions");
+			$data = Trello::get_array("$key/$value/actions?$filter&$params");
 			
 			foreach( $data as $action )
 			{
@@ -127,7 +127,7 @@ class Strapello
 	{
 		if( !$data = static::cache($id) )
 		{
-			$data = Trello::get_array("member/$id");
+			$data = Trello::get_array("members/$id");
 			static::cache($id, $data);
 		}
 		
@@ -147,7 +147,7 @@ class Strapello
 	 */
 	public static function cards($key, $value = null, $filter = array('fields' => 'all', 'checklists' => 'all', 'checkItemStatuses' => 'true'))
 	{
-		$valid_keys = array('member', 'organization', 'board', 'list');
+		$valid_keys = array('members', 'organizations', 'boards', 'lists');
 		
 		if( !in_array($key, $valid_keys) )
 		{
