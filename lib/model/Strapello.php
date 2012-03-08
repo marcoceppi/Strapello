@@ -60,7 +60,7 @@ class Strapello
 			throw new Exception($key . ' must have a value.');
 		}
 		
-		$filter = ((!empty($filter)) ? 'filter=' . ((is_array($filter)) ? implode($filter) : $filter) : '';
+		$filter = (!empty($filter)) ? 'filter=' . ((is_array($filter)) ? implode($filter) : $filter) : '';
 		
 		if( !empty($params) )
 		{
