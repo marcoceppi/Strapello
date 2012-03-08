@@ -49,7 +49,7 @@
           <h3>Boards</h3>
           <ul>
 		{foreach from=$boards item=board}
-            <li><a href="{$board.data.url}" target="_blank" rel="tooltip" title="Open Board in Trello" alt="Open Board in Trello"><i class="icon-th-large"></i></a> {$board.data.name} ( {$board.data.done} / {$board.data.total} )</li>
+            <li><a href="{$board.data.url}" target="_blank" rel="tooltip" title="Open Board in Trello" alt="Open Board in Trello"><i class="icon-th-large"></i></a> {$board.data.name} ( {$board.stats.done} / {$board.stats.total} )</li>
 		{/foreach}
           </ul>
         </div>
