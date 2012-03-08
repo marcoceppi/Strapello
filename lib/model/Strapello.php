@@ -46,6 +46,48 @@ class Strapello
 		return $data;
 	}
 	
+	public static function actions($key, $value = null, $filter = 'all', $params = array('limit' => 1000, 'fields' => 'all'))
+	{
+		$valid_keys = array('member', 'organization', 'board', 'list');
+		
+		if( !in_array($key, $valid_keys) )
+		{
+			throw new Exception($key . ' is not a valid API endpoint.');
+		}
+		
+		if( is_null($value) )
+		{
+			throw new Exception($key . ' must have a value.');
+		}
+		
+		$filter = ((!empty($filter)) ? 'filter=' . ((is_array($filter)) ? implode($filter) : $filter) : '';
+		
+		if( !empty($params) )
+		{
+			$p = '';
+			foreach($params as $k => $v)
+			{
+				$p .= ((!empty($p)) ? '&' : '') . "$k=" . ((is_array($v)) ? implode($v) : $v);
+			}
+			
+			$params = $p;
+		}
+		
+		if( !$data = static::cache($key . '_' . $value) )
+		{
+			$data = Trello::get_array("$key/$value/actions");
+			
+			foreach( $data as $action )
+			{
+				static::cache($action['id'], $action);
+			}
+			
+			static::cache($key . '_' . $value, $data);
+		}
+		
+		return $data;
+	}
+	
 	/**
 	 * Member
 	 * 
