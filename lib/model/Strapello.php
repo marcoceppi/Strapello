@@ -129,6 +129,11 @@ class Strapello
 			throw new Exception($key . ' is not a valid API endpoint.');
 		}
 		
+		if( is_null($value) )
+		{
+			throw new Exception($key . ' must have a value.');
+		}
+		
 		if( !$data = static::cache($key . '_' . $value) )
 		{
 			$data = Trello::get_array("$key/$value/cards");
