@@ -43,7 +43,7 @@ class Strapello
 				throw new Exception($id . ' is not a valid API endpoint.');
 			}
 			
-			if( !$data = static::cache($id . '_' . $value) )
+			if( !$data = static::cache($id . '_' . $value . '_lists') )
 			{
 				$data = Trello::get_array("$id/$value/lists");
 				
@@ -52,7 +52,7 @@ class Strapello
 					static::cache($list['id'], $list);
 				}
 				
-				static::cache($id . '_' . $value);
+				static::cache($id . '_' . $value . '_lists', $data);
 			}
 		}
 		
@@ -85,20 +85,20 @@ class Strapello
 			throw new Exception($key . ' must have a value.');
 		}
 		
-		$filter = (!empty($filter)) ? 'filter=' . ((is_array($filter)) ? implode($filter) : $filter) : '';
+		$filter = (!empty($filter)) ? 'filter=' . ((is_array($filter)) ? implode(',', $filter) : $filter) : '';
 		
 		if( !empty($params) )
 		{
 			$p = '';
 			foreach($params as $k => $v)
 			{
-				$p .= ((!empty($p)) ? '&' : '') . "$k=" . ((is_array($v)) ? implode($v) : $v);
+				$p .= ((!empty($p)) ? '&' : '') . "$k=" . ((is_array($v)) ? implode(',', $v) : $v);
 			}
 			
 			$params = $p;
 		}
 		
-		if( !$data = static::cache($key . '_' . $value) )
+		if( !$data = static::cache($key . '_' . $value . '_actions') )
 		{
 			$data = Trello::get_array("$key/$value/actions?$filter&$params");
 			
@@ -107,7 +107,7 @@ class Strapello
 				static::cache($action['id'], $action);
 			}
 			
-			static::cache($key . '_' . $value, $data);
+			static::cache($key . '_' . $value . '_actions', $data);
 		}
 		
 		return $data;
@@ -159,7 +159,7 @@ class Strapello
 			throw new Exception($key . ' must have a value.');
 		}
 		
-		if( !$data = static::cache($key . '_' . $value) )
+		if( !$data = static::cache($key . '_' . $value . '_cards') )
 		{
 			$data = Trello::get_array("$key/$value/cards");
 			
@@ -168,7 +168,7 @@ class Strapello
 				static::cache($card['id'], $card);
 			}
 			
-			static::cache($key . '_' . $value, $data);
+			static::cache($key . '_' . $value . '_cards', $data);
 		}
 		
 		return $data;
