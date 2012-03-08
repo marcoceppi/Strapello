@@ -67,6 +67,21 @@ class user extends App
 		$total['doing'] = count($inprogress);
 		$total['todo'] = count($todo);
 		
+		$chart_data = array();
+		$changes = Strapello::changes('members', $userdata['id'], $tasks);
+		
+		end($changes);
+		$chart_data['first_key'] = key($changes);
+		$first_row = current($changes);
+		$chart_data['total'] = $first_row['total'];
+		$chart_data['max'] = strtotime('2012-04-01') * 1000;
+		reset($changes);
+		
+		static::$View->assign('chart_data', $chart_data);
+		static::$View->assign('changes', $changes);
+		$js = static::$View->fetch('card_burndown.js.tpl');
+		static::$View->assign('JS', $js);
+		
 		static::$View->assign('total', $total);
 
 		static::$View->assign('percent', array('done' => round(($total['done'] / $total['tasks']) * 100, 2), 'doing' => round(($total['doing'] / $total['tasks']) * 100, 2)));

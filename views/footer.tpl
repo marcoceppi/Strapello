@@ -10,6 +10,9 @@
     <script src="assets/flot/jquery.flot.stack.min.js"></script>
     <script src="assets/js/app.js"></script>
     <script type="text/javascript">
+    {literal}
+    $(function(){ $('a[rel=tooltip]').tooltip({placement: 'bottom'}); });
+    {/literal}
 	{$JS}
     </script>
   </body>

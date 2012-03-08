@@ -192,6 +192,76 @@ class Strapello
 		return (array_key_exists($name, static::$statuses)) ? static::$statuses[$name] : DEFAULT_STATUS;
 	}
 	
+	public static function changes($key, $value, $seeds = array())
+	{
+		$raw_actions = static::actions($key, $value, 'updateCard:idList');
+		//echo "<pre>";var_dump($raw_actions);die();
+		if( empty($seeds) )
+		{
+			throw new Exception('Not supported yet');
+		}
+
+		$now = date('Y-m-d');
+		$changes = array($now => array());
+
+		foreach($seeds as $seed)
+		{
+			$changes[$now][$seed['id']] = $seed['status'];
+		}
+
+		/**
+		 * This is a weird way to do this, so I'm going to close my eyes and do it - then see what happens
+		 *
+		 * So we go through a 24 hour (day) and track each card that changes, a card may change multiple
+		 * times a day, so we only care about
+		 *
+		 * That makes sense, it only tracks changes that happen, so we can't get long running statuses. Instead lets
+		 * feed in the current card statuses for a user then step backwards! One day, these API results will be
+		 * cached. Until then, I'm so sorry Trello <3
+		 *
+		 * Store everything as the Unix EPOC timestamp, because we're cool like that.
+		 * Naw, just kidding. Who cares about EPOCH, we'll just convert it in the JS
+		 */
+		$actions = array();
+		$last_change_date = $now;
+		foreach( $raw_actions as $change )
+		{
+			$change_time = date('Y-m-d', strtotime($change['date']));
+			
+			// Lets see if we've done this day yet, if not we'll need to first process the previous day's 
+			// data, then start a new bean counter
+			if( !array_key_exists($change_time, $changes) )
+			{
+				$next_day = date('Y-m-d', strtotime('-1 day', strtotime($last_change_date)));
+				for( $i = strtotime($change_time); $i <= strtotime($next_day); $next_day = date('Y-m-d', strtotime('-1 day', strtotime($next_day))) )
+				{
+					$actions[$last_change_date] = array('todo' => 0, 'done' => 0, 'inprogress' => 0, 'next' => 0, 'js_time' => strtotime($last_change_date) * 1000);
+					// Look at how lazy I am!
+					$next_day = date('Y-m-d', strtotime('-1 day', strtotime($last_change_date)));
+					// Process other day's stats
+					foreach( $changes[$last_change_date] as $card_id => $status )
+					{
+						$actions[$last_change_date][$status]++;
+						//$actions[$last_change_date]['total']++;
+					}
+					
+					$changes[$next_day] = $changes[$last_change_date];
+					$last_change_date = $next_day;
+				}
+			}
+			
+			if( !$status = static::status($change['data']['listAfter']['name']) )
+			{
+				continue;
+			}
+			
+			$changes[$change_time][$change['data']['card']['id']] = $status;
+			$last_change_date = $change_time;
+		}
+		
+		return $actions;
+	}
+	
 	private static function cache($key, $value = null)
 	{
 		if( !is_null($value) )
