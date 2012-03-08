@@ -6,53 +6,82 @@ class user extends App
 {
 	public static function init($user)
 	{
+		$userdata = Strapello::member($user);
+		$cards = Strapello::cards('member', $userdata['id']);
 		
-		 
-		$js = <<<'HEREWEGO'
-    <?php end($changes); $first_key = strtotime(key($changes)) * 1000; $total = current($changes); $first_total = $total['total']; reset($changes); ?>
-    $(function ()
-    {
-      var todo = [];
-      var next = [];
-      var inprogress = [];
-      var done = [];
-      var postponed = [];
-      
-      var stack = true, bars = true, lines = false, steps = false, max = <?php echo strtotime('2012-04-01') * 1000; ?>;
-      var burndown = [[<?php echo $first_key; ?>, <?php echo $first_total; ?>], [max, 0]];
-      
-      <?php
-        foreach( $changes as $date => $change )
-        {
-          $megaseconds = strtotime($date) * 1000;
-          unset($change['total']);
-          foreach( $change as $type => $val )
-          {
-            echo $type . '.push([' . $megaseconds . ', ' . $val . ']);';
-          }
-        }
-      ?>
-      
-      $.plot($("#placeholder"),
-      [ {data: todo, label: "Todo"}, 
-        {data: next, label: "Next"}, 
-        {data: inprogress, label: "Doing"}, 
-        {data: done, label: "Done!"}, 
-        {data: postponed, label:"On Hold"}, 
-        {data: burndown, label:"Burndown", stack: false, color: 'black', lines: {show: true, fill: false, steps: false}, bars: {show: false}}
-      ],
-      {
-        xaxis: { mode: 'time', max: max },
-        legend: { position: 'ne' },
-        series:
-        {
-          stack: stack,
-          lines: { show: lines, fill: true, steps: steps },
-          bars: { show: bars, barWidth: 1 }
-        }
-      });
-      $('a[rel=tooltip]').tooltip({placement: 'bottom'});
-    });
-HEREWEGO;
+		$boards = array();
+		$tasks = array();
+
+		$done = array();
+		$todo = array();
+		$next = array();
+		$inprogress = array();
+		$postponed = array();
+
+		foreach($cards as $card)
+		{
+			if( !array_key_exists($card['idBoard'], $boards) )
+			{
+				$boards[$card['idBoard']] = array('data' => Strapello::board($card['idBoard']), 'stats' => array('inprogress' => 0, 'todo' => 0, 'done' => 0, 'total' => 0));
+				// Pre-seed cache with lists for the board
+				Strapello::lists('board', $card['idBoard']);
+			}
+			
+			$list = Strapello::lists($card['idList']);
+			
+			if( !$status = Strapello::status($list['name']) )
+			{
+				continue;
+			}
+			
+			$task = array();
+			$task['id'] = $card['id'];
+			$task['name'] = $card['name'];
+			$task['shortname'] = truncate($card['name'], 35);
+			$task['description'] = $card['desc'];
+			$task['status'] = $status;
+			$task['list'] = $list;
+			$task['url'] = $card['url'];
+			$task['members'] = array();
+			
+			foreach( $card['idMembers'] as $member )
+			{
+				if( $member != $user['id'] )
+				{
+					$task['members'][] = Strapello::member($member);
+				}
+			}
+			
+			$tasks[$card['id']] = $task;
+			
+			// Hi everyone looking at me prototype with bad code!
+			${$status}[] = $task;
+
+			$boards[$card['idBoard']]['stats'][$status]++;
+			$boards[$card['idBoard']]['stats']['total']++;
+		}
+		
+		$total = array();
+		$total['tasks'] = count($tasks);
+		$total['done'] = count($done);
+		$total['doing'] = count($inprogress);
+		$total['todo'] = count($todo);
+		
+		static::$View->assign('total', $total);
+
+		static::$View->assign('percent', array('done' => round(($total['done'] / $total['tasks']) * 100, 2), 'doing' => round(($total['doing'] / $total['tasks']) * 100, 2)));
+		
+		static::$View->assign('user', $userdata);
+		static::$View->assign('boards', $boards);
+		
+		static::$View->assign('done', $done);
+		static::$View->assign('next', $next);
+		static::$View->assign('inprogress', $inprogress);
+		static::$View->assign('todo', $todo);
+		static::$View->assign('postponed', $postponed);
+		
+		static::$View->assign('API_COUNT', Trello::calls());
+		
+		static::$View->display('user_main.tpl');
 	}
 }
