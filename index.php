@@ -7,6 +7,8 @@
  * do all this jazz. But! WE'RE PROTOTYPING ON THE FLY GOGOGO. Proof of Concept <3
  */
 
+define('IN_APP', true);
+
 require_once('lib/common.php');
 
 $raw_route = (!empty($_GET['__r'])) ? $_GET['__r'] : 'main';
@@ -16,14 +18,21 @@ $route = array_shift($routes);
 
 if( file_exists('app/' . $route . '.php') )
 {
-	define('IN_APP', true);
-	
 	require_once('app/' . $route . '.php');
 	
 	// There might be a better way to do this.
 	$route::$View = $View;
 	$method = (!empty($routes)) ? array_shift($routes) : 'init';
-	$route::$method($routes);
+	
+	try
+	{
+		$route_test = new ReflectionMethod($route, $method);
+		$route::$method($routes);
+	}
+	catch( Exception $e )
+	{
+		$route::init($method);
+	}
 }
 else
 {
