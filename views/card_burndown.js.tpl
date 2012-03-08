@@ -27,7 +27,7 @@ $(function ()
 	//{data: burndown, label:"Burndown", stack: false, color: 'black', lines: {show: true, fill: false, steps: false}, bars: {show: false}}
   ],
   {
-	xaxis: { mode: 'time', max: max },
+	xaxis: { mode: 'time' },
 	legend: { position: 'ne' },
 	series:
 	{
