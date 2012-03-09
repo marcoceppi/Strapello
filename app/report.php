@@ -51,9 +51,9 @@ class report extends App
 			{
 				$task['members'][] = Strapello::member($member);
 				
-				if( !in_array($member, $members) )
+				if( !array_key_exists($member, $members) )
 				{
-					$members[$member] = array('data' => Strapello::member($member), 'stats' => array('inprogress' => 0, 'todo' => 0, 'done' => 0, 'total' => 0));
+					$members[$member] = array('data' => Strapello::member($member), 'stats' => array('todo' => 0, 'next' => 0, 'inprogress' => 0, 'done' => 0, 'total' => 0));
 				}
 				
 				$members[$member]['stats'][$status]++;
