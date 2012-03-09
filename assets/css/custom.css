@@ -71,7 +71,7 @@ div.well ul
   vertical-align: middle;
 }
 
-li [class^="icon-"], li [class*=" icon-"]
+[class^="icon-"], [class*=" icon-"]
 {
   vertical-align: text-bottom;
 }
