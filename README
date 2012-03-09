@@ -1,1 +1,9 @@
-Proof of Concept Proof of Concept Proof of Concept Proof of Concept Proof of Concept Proof of Concept Proof of Concept Proof of Concept Proof of Concept Proof of Concept Proof of Concept
+This is a Proof of Concept for what a Project Management tool to overlay
+any work item management tool (In this case Trello) would work.
+
+A live demo running the latest code is available at http://strapello.com/
+
+To install, fetch the latest code, copy inc/config.inc.php.sample to 
+inc/config.inc.php and fill in the values.
+
+TODO, write the rest of this
