@@ -25,6 +25,7 @@ class report extends App
 		$next = array();
 		$inprogress = array();
 		$postponed = array();
+		$removed = array();
 
 		$lists = Strapello::lists('boards', $board['id']);
 		
@@ -37,6 +38,10 @@ class report extends App
 				continue;
 			}
 			
+			if( $card['closed'] && $status != 'done' )
+			{
+				$status = 'removed';
+			}
 			$task = array();
 			$task['id'] = $card['id'];
 			$task['name'] = $card['name'];

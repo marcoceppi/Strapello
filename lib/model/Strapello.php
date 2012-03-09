@@ -206,7 +206,7 @@ class Strapello
 	public static function changes($key, $value, $seeds = array())
 	{
 		$raw_actions = static::actions($key, $value, 'updateCard:idList');
-		//echo "<pre>";var_dump($raw_actions);die();
+		
 		if( empty($seeds) )
 		{
 			throw new Exception('Not supported yet');
