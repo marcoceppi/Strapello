@@ -1,15 +1,26 @@
 header .inner h1
 {
-  font-size: 81px;
+  font-size: 65px;
   line-height: 1;
   margin-top: 10px;
+  height: 90px;
 }
 
 header .inner h1 img
 {
   vertical-align: middle;
   width:80px;
+  float:left;
 }
+
+header .inner h1 small
+{
+  vertical-align: middle;
+  display:block;
+  margin-top:0px;
+  margin-left: 100px;
+}
+
 #total_progress span
 {
   text-align: center;

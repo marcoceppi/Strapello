@@ -3,7 +3,7 @@
     <div class="container">
       <header class="jumbotron masthead" id="overview">
         <div class="inner">
-          <h1><img src="https://trello-avatars.s3.amazonaws.com/{$user.avatarHash}/170.png">&nbsp;{$user.fullName}</h1>
+          <h1><img src="https://trello-avatars.s3.amazonaws.com/{$user.avatarHash}/170.png">&nbsp;{$user.fullName}<small>{$user.bio}</small></h1>
         </div>
       <br>
 	  <div class="navbar"><div class="navbar-inner"><div class="container">
