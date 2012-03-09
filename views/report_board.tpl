@@ -67,11 +67,11 @@
       </div>
       <div class="row">
         <div class="span4 well">
-          <h3>Boards</h3>
+          <h3>Unassigned</h3>
           <ul>
-		{foreach from=$boards item=board}
-            <li><a href="{$board.data.url}" target="_blank" rel="tooltip" title="Open Board in Trello" alt="Open Board in Trello"><i class="icon-th-large"></i></a> {$board.data.name} ( {$board.stats.done} / {$board.stats.total} )</li>
-		{/foreach}
+          {foreach from=$unassigned item=item}
+            <li><a href="{$item.url}" target="_blank" rel="tooltip" title="Open this Card in Trello" alt="Open this Card in Trello"><i class="icon-list-alt"></i></a> {$item.shortname}</li>
+          {/foreach}
           </ul>
         </div>
         <div class="span4 well">

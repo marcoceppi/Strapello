@@ -62,6 +62,11 @@ class report extends App
 			
 			$tasks[$card['id']] = $task;
 			${$status}[] = $task;
+			
+			if( empty($task['members']) )
+			{
+				$unassigned[] = $task;
+			}
 		}
 		
 		$total = array();
@@ -97,6 +102,7 @@ class report extends App
 		static::$View->assign('inprogress', $inprogress);
 		static::$View->assign('todo', $todo);
 		static::$View->assign('postponed', $postponed);
+		static::$View->assign('unassigned', $unassigned);
 		
 		static::$View->assign('API_COUNT', Trello::calls());
 		
