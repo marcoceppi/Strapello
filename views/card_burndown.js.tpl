@@ -7,7 +7,7 @@ $(function ()
   var postponed = [];
   var removed = [];
   
-  var stack = true, bars = true, lines = false, steps = false, max = '{$chart_data.max}';
+  var stack = true, bars = true, lines = true, steps = false, max = '{$chart_data.max}';
   //var burndown = [[{$chart_data.first_key}, {$chart_data.total}], [max, 0]];
   
   {foreach from=$changes item=change key=date name=changes_loop}
