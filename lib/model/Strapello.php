@@ -59,12 +59,22 @@ class Strapello
 		return $data;
 	}
 	
-	public static function board($id, $fields = array('name', 'url'))
+	public static function board($id, $params = array('fields' => array('name', 'url'), 'organization' => true))
 	{
+		if( !empty($params) )
+		{
+			$p = '';
+			foreach($params as $k => $v)
+			{
+				$p .= ((!empty($p)) ? '&' : '') . "$k=" . ((is_array($v)) ? implode(',', $v) : $v);
+			}
+			
+			$params = $p;
+		}
+		
 		if( !$data = static::cache($id) )
 		{
-			$fields = (is_array($fields) && !empty($fields)) ? '?fields=' . implode(',', $fields) : '';
-			$data = Trello::get_array("boards/$id/$fields");
+			$data = Trello::get_array("boards/$id/?$params");
 			static::cache($id, $data);
 		}
 		
