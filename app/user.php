@@ -17,6 +17,7 @@ class user extends App
 		$next = array();
 		$inprogress = array();
 		$postponed = array();
+		$removed = array();
 
 		foreach($cards as $card)
 		{
@@ -32,6 +33,11 @@ class user extends App
 			if( !$status = Strapello::status($list['name']) )
 			{
 				continue;
+			}
+			
+			if( $card['closed'] && $status != 'done' )
+			{
+				$status = 'removed';
 			}
 			
 			$task = array();
@@ -94,6 +100,7 @@ class user extends App
 		static::$View->assign('inprogress', $inprogress);
 		static::$View->assign('todo', $todo);
 		static::$View->assign('postponed', $postponed);
+		static::$View->assign('removed', $removed);
 		
 		static::$View->assign('API_COUNT', Trello::calls());
 		

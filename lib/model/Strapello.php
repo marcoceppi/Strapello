@@ -145,7 +145,7 @@ class Strapello
 	 * 
 	 * @return false|array of $key cards
 	 */
-	public static function cards($key, $value = null, $filter = array('fields' => 'all', 'checklists' => 'all', 'checkItemStatuses' => 'true'))
+	public static function cards($key, $value = null, $params = array('fields' => 'all', 'checklists' => 'all', 'checkItemStatuses' => 'true', 'filter' => 'all'))
 	{
 		$valid_keys = array('members', 'organizations', 'boards', 'lists');
 		
@@ -159,9 +159,20 @@ class Strapello
 			throw new Exception($key . ' must have a value.');
 		}
 		
+		if( !empty($params) )
+		{
+			$p = '';
+			foreach($params as $k => $v)
+			{
+				$p .= ((!empty($p)) ? '&' : '') . "$k=" . ((is_array($v)) ? implode(',', $v) : $v);
+			}
+			
+			$params = $p;
+		}
+		
 		if( !$data = static::cache($key . '_' . $value . '_cards') )
 		{
-			$data = Trello::get_array("$key/$value/cards");
+			$data = Trello::get_array("$key/$value/cards/?$params");
 			
 			foreach( $data as $card )
 			{
@@ -253,6 +264,11 @@ class Strapello
 			if( !$status = static::status($change['data']['listAfter']['name']) )
 			{
 				continue;
+			}
+			
+			if( $change['data']['closed'] && $status != 'done' )
+			{
+				$status = 'removed';
 			}
 			
 			$changes[$change_time][$change['data']['card']['id']] = $status;

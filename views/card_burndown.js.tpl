@@ -5,8 +5,9 @@ $(function ()
   var inprogress = [];
   var done = [];
   var postponed = [];
+  var removed = [];
   
-  var stack = true, bars = false, lines = true, steps = false, max = '{$chart_data.max}';
+  var stack = true, bars = true, lines = false, steps = false, max = '{$chart_data.max}';
   //var burndown = [[{$chart_data.first_key}, {$chart_data.total}], [max, 0]];
   
   {foreach from=$changes item=change key=date name=changes_loop}
@@ -24,6 +25,7 @@ $(function ()
 	{data: inprogress, label: "Doing"}, 
 	{data: done, label: "Done!"}, 
 	{data: postponed, label:"On Hold"}, 
+	{data: removed, label:"Deleted"}, 
 	//{data: burndown, label:"Burndown", stack: false, color: 'black', lines: {show: true, fill: false, steps: false}, bars: {show: false}}
   ],
   {
@@ -33,7 +35,7 @@ $(function ()
 	{
 	  stack: stack,
 	  lines: { show: lines, fill: true, steps: steps },
-	  bars: { show: bars, barWidth: 1 }
+	  bars: { show: bars }
 	}
   });
 });
