@@ -15,7 +15,7 @@ $View = new Template();
 $View->compile_dir = APPLICATION_ROOT . 'views/_cache';
 $View->template_dir = APPLICATION_ROOT . 'views';
 $http_dir_name = dirname($_SERVER['PHP_SELF']);
-$View->assign('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . ((empty($http_dir_name)) ? '' : $http_dir_name . '/'));
+$View->assign('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . $http_dir_name . (($http_dir_name == '/') ? '' : '/'));
 
 function truncate($string, $limit, $pad = '&hellip;')
 {
