@@ -57,7 +57,7 @@ header .inner h1 img
   margin-right:0px;
 }
 
-#tasks div.well ul
+div.well ul
 {
   list-style-type: none;
   padding: 0;
@@ -74,6 +74,12 @@ header .inner h1 img
 li [class^="icon-"], li [class*=" icon-"]
 {
   vertical-align: text-bottom;
+}
+
+h3 [class^="icon-"], h3 [class*=" icon-"]
+{
+  vertical-align: middle;
+  margin-bottom: 5px;
 }
 
 .progress .bar

@@ -27,12 +27,13 @@ if( file_exists('app/' . $route . '.php') )
 	try
 	{
 		$route_test = new ReflectionMethod($route, $method);
-		$route::$method($routes);
 	}
 	catch( Exception $e )
 	{
 		$route::init($method);
 	}
+	
+	$route::$method($routes);
 }
 else
 {
