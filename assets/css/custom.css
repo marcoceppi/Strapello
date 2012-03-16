@@ -108,3 +108,8 @@ h3 [class^="icon-"], h3 [class*=" icon-"]
 {
 	opacity: 0.8;
 }
+
+.navbar .nav.pull-right 
+{
+	margin-right: 25px;
+}

@@ -13,6 +13,9 @@
 		  <li><a href="#breakdown">Breakdown</a></li>
 		  <li><a href="#tasks">Tasks</a></li>
 		</ul>
+		<ul class="nav pull-right">
+		  <li><a href="#connect" id="trelloConnect">Connect with Trello</a></li>
+		</ul>
 	  </div></div></div>
       </header>
     <section id="breakdown">
