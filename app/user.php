@@ -106,4 +106,9 @@ class user extends App
 		
 		static::$View->display('user_main.tpl');
 	}
+	
+	public static function me()
+	{
+		echo "Hey";
+	}
 }
