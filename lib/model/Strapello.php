@@ -7,7 +7,7 @@
  * @author Marco Ceppi <marco@ceppi.net>
  * 
  * @note Not sure if Caching should be lower in the chain at the Trello
- * 		 level or not. Only time will tell.
+ * 		 class or not. Only time will tell.
  */
 
 require_once('helper/Trello.php');

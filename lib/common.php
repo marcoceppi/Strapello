@@ -28,10 +28,10 @@ function truncate($string, $limit, $pad = '&hellip;')
 		{
 			$string = substr($string, 0, $breakpoint) . $pad;
 		}
-    }
-    */
-    
-    $string = substr($string, 0, $limit) . $pad;
-	
+	}
+	*/
+
+	$string = substr($string, 0, $limit) . $pad;
+
 	return $string;
 }
