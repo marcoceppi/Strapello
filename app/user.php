@@ -72,7 +72,7 @@ class user extends App
 		$total['done'] = count($done);
 		$total['doing'] = count($inprogress);
 		$total['todo'] = count($todo);
-		
+		/*
 		$chart_data = array();
 		$changes = Strapello::changes('members', $userdata['id'], $tasks);
 		
@@ -87,7 +87,7 @@ class user extends App
 		static::$View->assign('changes', $changes);
 		$js = static::$View->fetch('card_burndown.js.tpl');
 		static::$View->assign('JS', $js);
-		
+		*/
 		static::$View->assign('total', $total);
 
 		static::$View->assign('percent', array('done' => round(($total['done'] / $total['tasks']) * 100, 2), 'doing' => round(($total['doing'] / $total['tasks']) * 100, 2)));

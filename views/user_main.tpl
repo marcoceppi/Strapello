@@ -22,6 +22,7 @@
       <div>
         <h2>Breakdown</h2>
       </div>
+    <!--
       <div class="row">
         <div class="span12">
           <div id="placeholder" style="width:100%;height:400px;"></div>
@@ -29,8 +30,8 @@
       </div>
       <br>
       <div>
-      <!--  <h1>Overall Progress</h1> -->
       </div>
+    -->
       <div class="row">
         <div class="span12" id="total_progress">
           <div class="progress">
